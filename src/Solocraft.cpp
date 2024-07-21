@@ -531,9 +531,9 @@ private:
         // If a player is too high level for dungeon don't buff but if in a group will count towards the group offset balancing.
         if (unit->GetLevel() > dunLevel + SolocraftLevelDiff)
         {
-            ss << "|cffFF0000[SoloCraft] |cffFF8000" << unit->GetName() << (unit->IsNPCBot() ? " (bot)" : "") << " updates " << map->GetMapName()
-                << " - |cffFF0000Have not been buffed. |cffFF8000Level is higher than the max level ("
-                << uint32(dunLevel + SolocraftLevelDiff) << ") threshold for this dungeon.";
+            ss << "|cffFF0000[动态副本] |cffFF8000" << unit->GetName() << (unit->IsNPCBot() ? " (bot)" : "") << " updates " << map->GetMapName()
+                << " - |cffFF0000Have not been buffed. |cffFF8000等级高于此地下城的最高等级 ("
+                << uint32(dunLevel + SolocraftLevelDiff) << ") 阈值。";
             ReportToSelf(unit, ss.str());
             //ReportToGroup(unit, members, ss.str());
             ClearBuffs(unit, map, class_);
@@ -612,11 +612,11 @@ private:
         //    if (!veh->GetBase()->IsPlayer())
         //        ApplyVehicleBuffs(veh->GetBase()->ToCreature(), scp);
 
-        ss << "|cffFF0000[SoloCraft] |cffFF8000" << unit->GetName() << (unit->IsNPCBot() ? " (bot)" : "") << " updates " << map->GetMapName()
-            << " - Difficulty Offset: " << difficulty << ". Crit Bonus: " << scp.crit_bonus << "%. Defense Bonus: " << scp.defense_bonus
-            << ". Damage Taken Bonus: " << (-scp.dmgtaken_bonus) << "%. Spellpower Bonus: " << scp.spellpower_bonus
-            << ". Class Balance Weight: " << classBalance << ". "
-            << (SolocraftXPEnabled ? SolocraftXPEnabled ? "XP Balancing: |cff4CFF00Enabled" : "XP Balancing: |cffFF0000Disabled" : "XP Gain: |cffFF0000Disabled");
+        ss << "|cffFF0000[动态副本] |cffFF8000" << unit->GetName() << (unit->IsNPCBot() ? " (bot)" : "") << " updates " << map->GetMapName()
+            << " - 难度平衡: " << difficulty << ". 暴击加成: " << scp.crit_bonus << "%. 防御加成: " << scp.defense_bonus
+            << ". 减伤加成: " << (-scp.dmgtaken_bonus) << "%. 法伤加成: " << scp.spellpower_bonus
+            << ". 职业平衡: " << classBalance << ". "
+            << (SolocraftXPEnabled ? SolocraftXPEnabled ? "经验平衡: |cff4CFF00启用" : "经验平衡: |cffFF0000停用" : "经验加成: |cffFF0000停用");
         ReportToSelf(unit, ss.str());
         //ReportToGroup(unit, members, ss.str());
     }
@@ -654,11 +654,11 @@ private:
             ss.setf(std::ios_base::fixed);
             ss.precision(2);
 
-            ss << "|cffFF0000[SoloCraft] |cffFF8000" << unit->GetName() << (is_bot ? " (bot)" : "")
+            ss << "|cffFF0000[动态副本] |cffFF8000" << unit->GetName() << (is_bot ? " (bot)" : "")
                 << (max_players_reached ? is_bot ? " resets " : " resets in " : is_bot ? " exited from " : " exited to ") << map->GetMapName()
-                << " - Reverting Difficulty Offset: " << scp.difficulty
-                << ". Crit Bonus Removed: " << scp.crit_bonus << "%. Defense Bonus Removed: " << scp.defense_bonus
-                << ". Damage Taken Bonus Removed: " << (-scp.dmgtaken_bonus) << "%. Spellpower Bonus Removed: " << scp.spellpower_bonus;
+                << " - 恢复难度调整: " << scp.difficulty
+                << ". 移除暴击加成: " << scp.crit_bonus << "%. 移除防御加成: " << scp.defense_bonus
+                << ". 移除减伤加成: " << (-scp.dmgtaken_bonus) << "%. 移除法伤加成: " << scp.spellpower_bonus;
             ReportToSelf(unit, ss.str());
             //ReportToGroup(unit, members, ss.str());
         }
@@ -723,7 +723,7 @@ public:
     void OnLogin(Player* player) override
     {
         if (SoloCraftEnable && SoloCraftAnnounceModule)
-            ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00SoloCraft |rmodule.");
+            ChatHandler(player->GetSession()).SendSysMessage("服务器已启用 |cff4CFF00动态副本 |r模块。");
     }
 };
 
