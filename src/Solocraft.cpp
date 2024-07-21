@@ -819,12 +819,13 @@ class SolocraftConfig : public WorldScript
 public:
     SolocraftConfig() : WorldScript("SolocraftConfig") {}
 
-    void OnBeforeConfigLoad(bool reload) override
+    void OnBeforeConfigLoad(bool /*reload*/) override
     {
+        // Load Configuration Settings
         SetInitialWorldSettings();
 
-        if (reload)
-            Solocraft::OnConfigReload();
+        //if (reload)
+        //    Solocraft::OnConfigReload();
     }
 
     // Load Configuration Settings
